@@ -10,22 +10,17 @@
     
 
     <h3>New participant</h3>
-    <form @submit.prevent="addNewParticipant()">
-      <label>Firstname: </label>
-      <input type="text" v-model="firstname">
-      <br />
-      <br />
-      <label>Lastname: </label>
-      <input type="text" v-model="lastname">
-      <br />
-      <br />
-      <button>Add new participant</button>
-    </form>
+    <new-participant-form @added="addNewParticipant($event)"></new-participant-form>
   </div>
 </template>
 
 <script>
+	import NewParticipantForm from "./NewParticipantForm.vue";
+
   export default {
+  
+    components: {NewParticipantForm},
+    
     data() {
       return {
       	
@@ -33,20 +28,15 @@
       		{ firstname : 'John', lastname: 'Doe' },
       		{ firstname : 'Robin', lastname: 'Hood' },
       		{ firstname : 'Chuck', lastname: 'Norris' },
-      		],
-      		
-      		firstname:'',
-      		lastname:''
+      		]
       
       };
     },
     methods: {
-      addNewParticipant() {
+      addNewParticipant(participant) {
       	
-      		this.participants.push( { firstname : this.firstname, lastname: this.lastname } );
+      		this.participants.push( { firstname : participant.firstname, lastname: participant.lastname } );
       		
-      		this.firstname = '';
-      		this.lastname = '';
       }
     }
   };
